@@ -1,9 +1,10 @@
 streamlit
-plotly
 pandas
 numpy
-Pillow
-reportlab
-PyPDF2
-python-dateutil
-openpyxl
+plotly
+google-generativeai
+pytesseract
+pdf2image
+pillow
+opencv-python-headless
+fpdf2
