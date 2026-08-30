@@ -3,19 +3,15 @@ import os
 
 st.set_page_config(page_title="Smart CA Copilot", layout="wide", initial_sidebar_state="expanded")
 
-# Get current directory path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Sidebar navigation
 st.sidebar.title("📌 Navigation Menu")
 selected_page = st.sidebar.radio(
     "Select Module:",
     ["Home", "Document OCR", "AI Tax Search", "Report Generator", "Client Dashboard"]
 )
 
-# Helper function to run scripts using dynamic absolute path
 def run_script(file_name):
-    # Check in root directory first, then in pages/ directory
     path_in_root = os.path.join(BASE_DIR, file_name)
     path_in_pages = os.path.join(BASE_DIR, "pages", file_name)
     
@@ -24,14 +20,18 @@ def run_script(file_name):
     elif os.path.exists(path_in_pages):
         file_path = path_in_pages
     else:
-        st.error(f"❌ Error: File '{file_name}' not found in root or 'pages/' folder.")
+        st.error(f"❌ Error: File '{file_name}' not found.")
         return
 
     with open(file_path, "r", encoding="utf-8") as f:
         code = f.read()
-    exec(code, globals())
+    
+    # Strip st.set_page_config from imported sub-files to avoid crash
+    code_lines = [line for line in code.split("\n") if "st.set_page_config" not in line]
+    clean_code = "\n".join(code_lines)
+    
+    exec(clean_code, globals())
 
-# Session State sync for home buttons
 if "nav_choice" in st.session_state:
     selected_page = st.session_state.pop("nav_choice")
 
