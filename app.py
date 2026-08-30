@@ -1,6 +1,10 @@
 import streamlit as st
+import os
 
 st.set_page_config(page_title="Smart CA Copilot", layout="wide", initial_sidebar_state="expanded")
+
+# Get current directory path
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Sidebar navigation
 st.sidebar.title("📌 Navigation Menu")
@@ -9,13 +13,25 @@ selected_page = st.sidebar.radio(
     ["Home", "Document OCR", "AI Tax Search", "Report Generator", "Client Dashboard"]
 )
 
-# Helper function to run scripts safely
-def run_script(file_path):
+# Helper function to run scripts using dynamic absolute path
+def run_script(file_name):
+    # Check in root directory first, then in pages/ directory
+    path_in_root = os.path.join(BASE_DIR, file_name)
+    path_in_pages = os.path.join(BASE_DIR, "pages", file_name)
+    
+    if os.path.exists(path_in_root):
+        file_path = path_in_root
+    elif os.path.exists(path_in_pages):
+        file_path = path_in_pages
+    else:
+        st.error(f"❌ Error: File '{file_name}' not found in root or 'pages/' folder.")
+        return
+
     with open(file_path, "r", encoding="utf-8") as f:
         code = f.read()
     exec(code, globals())
 
-# Session State sync for buttons
+# Session State sync for home buttons
 if "nav_choice" in st.session_state:
     selected_page = st.session_state.pop("nav_choice")
 
