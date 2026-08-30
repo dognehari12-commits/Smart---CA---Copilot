@@ -1,44 +1,47 @@
 import streamlit as st
 
-st.set_page_config(page_title="Smart CA Copilot", layout="wide")
-
-# Custom navigation menu
-st.sidebar.title("📌 Navigation")
-page = st.sidebar.radio(
-    "Go to page:",
-    ["Dashboard", "Document OCR", "AI Tax Search", "Report Generator"]
+# Page setup
+st.set_page_config(
+    page_title="Smart CA Copilot",
+    page_icon="💼",
+    layout="wide"
 )
 
-if page == "Dashboard":
-    # Executive / Main Dashboard View
-    st.title("💼 Smart CA Copilot - Dashboard")
-    
-    st.markdown("### 🚀 Quick Actions")
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.subheader("Document OCR")
-        st.caption("Upload invoices & statements")
-        
-    with col2:
-        st.subheader("AI Tax Search")
-        st.caption("Ask tax questions with RAG")
-        
-    with col3:
-        st.subheader("Report Generator")
-        st.caption("Generate PDF reports")
-        
-    with col4:
-        st.subheader("Deep Analytics")
-        st.caption("Explore financial charts")
-        
-    st.info("👈 Select any feature from the sidebar menu on the left to get started!")
+# App Title & Header
+st.title("💼 Smart CA Copilot")
+st.subheader("Welcome to your AI-powered Financial & Tax Assistant")
 
-elif page == "Document OCR":
-    st.switch_page("pages/1_📄_Document_OCR.py")
+st.markdown("---")
 
-elif page == "AI Tax Search":
-    st.switch_page("pages/2_🤖_AI_Tax_Search.py")
+# Quick Guidance Banner
+st.success("✅ App Successfully Connected!")
 
-elif page == "Report Generator":
-    st.switch_page("pages/3_📑_Report_Generator.py")
+st.info("""
+👈 **नेविगेशन गाइड:** 
+स्क्रीन पर बाईं तरफ दिए गए **Sidebar Menu** से अपना पसंदीदा मॉड्यूल चुनें:
+* **📄 Document OCR** - Invoices & Financial Statements एक्सट्रैक्ट करने के लिए।
+* **🤖 AI Tax Search** - RAG-powered Tax Queries के लिए।
+* **📑 Report Generator** - PDF Financial Reports डाउनलोड करने के लिए।
+* **📊 Client Dashboard** - Client Overview & Financial KPIs देखने के लिए।
+""")
+
+st.markdown("---")
+
+# Quick Features Breakdown (Visual Cards)
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown("### 📄 Document OCR")
+    st.caption("Upload invoices & bank statements for AI extraction.")
+
+with col2:
+    st.markdown("### 🤖 AI Tax Search")
+    st.caption("Ask complex tax questions with instant RAG citations.")
+
+with col3:
+    st.markdown("### 📑 Report Generator")
+    st.caption("Generate & export professional PDF financial reports.")
+
+with col4:
+    st.markdown("### 📊 Deep Analytics")
+    st.caption("Explore interactive financial charts and client KPIs.")
