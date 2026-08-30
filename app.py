@@ -1,25 +1,27 @@
 import streamlit as st
-import importlib
 
 st.set_page_config(page_title="Smart CA Copilot", layout="wide", initial_sidebar_state="expanded")
 
-# Sidebar for direct navigation
+# Sidebar navigation
 st.sidebar.title("📌 Navigation Menu")
 selected_page = st.sidebar.radio(
     "Select Module:",
     ["Home", "Document OCR", "AI Tax Search", "Report Generator", "Client Dashboard"]
 )
 
-# Helper function to dynamically run files
-def load_module(file_name):
-    module_name = file_name.replace(".py", "")
-    module = importlib.import_module(module_name)
-    if hasattr(module, "main"):
-        module.main()
+# Helper function to run scripts safely
+def run_script(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        code = f.read()
+    exec(code, globals())
+
+# Session State sync for buttons
+if "nav_choice" in st.session_state:
+    selected_page = st.session_state.pop("nav_choice")
 
 if selected_page == "Home":
     st.title("💼 Smart CA Copilot")
-    st.write("Welcome! Click any option below or use the sidebar menu to navigate:")
+    st.write("नीचे दिए गए किसी भी मॉड्यूल पर जाने के लिए उसके बटन पर क्लिक करें या Sidebar का उपयोग करें:")
     st.markdown("---")
 
     col1, col2, col3, col4 = st.columns(4)
@@ -52,16 +54,11 @@ if selected_page == "Home":
             st.session_state["nav_choice"] = "Client Dashboard"
             st.rerun()
 
-# Check session state for button clicks
-if "nav_choice" in st.session_state:
-    selected_page = st.session_state.pop("nav_choice")
-
-# Load respective file modules
-if selected_page == "Document OCR":
-    load_module("1_Document_OCR.py")
+elif selected_page == "Document OCR":
+    run_script("1_Document_OCR.py")
 elif selected_page == "AI Tax Search":
-    load_module("2_AI_Tax_Search.py")
+    run_script("2_AI_Tax_Search.py")
 elif selected_page == "Report Generator":
-    load_module("3_Report_Generator.py")
+    run_script("3_Report_Generator.py")
 elif selected_page == "Client Dashboard":
-    load_module("4_Client_Dashboard.py")
+    run_script("4_Client_Dashboard.py")
