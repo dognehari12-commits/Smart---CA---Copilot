@@ -1,3 +1,12 @@
+import sys
+import os
+
+# Root directory ko Python path me add karne ke liye
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+import streamlit as st
+# Baaki aapki existing imports (e.g., from utils.ocr_engine import ...)
+
 """Page: Smart Document OCR & Parser."""
 
 import streamlit as st
