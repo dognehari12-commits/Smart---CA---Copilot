@@ -1,3 +1,13 @@
+import sys
+import os
+
+# Root directory को Python path में जोड़ें ताकि utils मॉड्यूल मिल जाए
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+# इसके बाद आपकी बाकी imports आएंगी:
+import streamlit as st
+from utils.rag_engine import RAGEngine
+
 """Page: RAG-based AI Tax Search."""
 
 import streamlit as st
