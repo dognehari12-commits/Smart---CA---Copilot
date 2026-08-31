@@ -50,8 +50,11 @@ pip install -r requirements.txt
 4. Run the Streamlit App
 Bash
 streamlit run app.py
+
 🚀 Live Demo
+
 Web App: Smart CA Copilot Streamlit App
+
 https://smart---ca---copilot-yajromsyiujrohzsy5kvwi.streamlit.app/
 
 👨‍💻 Author
