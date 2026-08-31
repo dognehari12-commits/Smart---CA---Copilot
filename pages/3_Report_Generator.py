@@ -1,3 +1,12 @@
+import sys
+import os
+
+# Root directory ko Python path me add karne ke liye
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+import streamlit as st
+# Baaki aapki existing imports (e.g., from utils.pdf_generator import ...)
+
 """Page: Automated Report Generator."""
 
 import streamlit as st
